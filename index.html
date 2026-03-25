@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conference Name Preference Test</title>
+<title>Preference Test</title>
+<!-- Load your options and settings from config.js -->
+<script src="config.js"></script>
 <style>
   :root {
     --bg-primary:    #ffffff;
@@ -61,20 +63,13 @@
     padding: 2.5rem 1rem;
   }
 
-  /* Skip link for keyboard users */
   .skip-link {
-    position: absolute;
-    top: -100%;
-    left: 1rem;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    padding: 8px 16px;
-    border-radius: var(--r-md);
+    position: absolute; top: -100%; left: 1rem;
+    background: var(--bg-primary); color: var(--text-primary);
+    padding: 8px 16px; border-radius: var(--r-md);
     border: 2px solid var(--focus-ring);
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    z-index: 200;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none; z-index: 200;
   }
   .skip-link:focus { top: 1rem; }
 
@@ -85,55 +80,23 @@
     border: 0.5px solid var(--border-subtle);
     border-radius: var(--r-lg);
     padding: 2rem;
-    outline: none;
   }
 
-  /* Focus ring applied to all interactive elements */
   :focus-visible {
     outline: 3px solid var(--focus-ring);
     outline-offset: 3px;
     border-radius: var(--r-md);
   }
 
-  h1 {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 0.4rem;
-  }
+  h1 { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem; }
+  .meta { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; }
+  .divider { border: none; border-top: 0.5px solid var(--border-subtle); margin: 1.5rem 0; }
 
-  .meta {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
-
-  .divider {
-    border: none;
-    border-top: 0.5px solid var(--border-subtle);
-    margin: 1.5rem 0;
-  }
-
-  /* Progress */
   .progress-wrap { margin-bottom: 1.75rem; }
-  .progress-label {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-  }
-  .progress-bar-bg {
-    height: 4px; border-radius: 99px;
-    background: var(--bg-secondary);
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    height: 100%; border-radius: 99px;
-    background: var(--text-info);
-    transition: width 0.3s ease;
-  }
+  .progress-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+  .progress-bar-bg { height: 4px; border-radius: 99px; background: var(--bg-secondary); overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 99px; background: var(--text-info); transition: width 0.3s ease; }
 
-  /* Voting layout */
   .vs-grid {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -141,161 +104,68 @@
     gap: 12px;
     margin-bottom: 0.75rem;
   }
-  .vs-label {
-    font-size: 13px; font-weight: 500;
-    color: var(--text-secondary);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .choice-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+  .vs-label { font-size: 13px; font-weight: 500; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; }
+  .choice-wrap { display: flex; flex-direction: column; gap: 6px; }
   .choice-btn {
-    width: 100%;
-    padding: 16px 12px;
+    width: 100%; padding: 16px 12px;
     border-radius: var(--r-lg);
     border: 1px solid var(--border-subtle);
     background: var(--bg-primary);
-    cursor: pointer;
-    font-family: var(--font);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-primary);
-    line-height: 1.5;
-    text-align: center;
+    cursor: pointer; font-family: var(--font);
+    font-size: 12px; font-weight: 500; color: var(--text-primary);
+    line-height: 1.5; text-align: center;
     transition: border-color 0.15s, background 0.15s, transform 0.1s;
     min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    hyphens: none;
+    display: flex; align-items: center; justify-content: center;
+    word-break: break-word; overflow-wrap: anywhere; hyphens: none;
   }
   .choice-btn:hover { border-color: var(--border-mid); background: var(--bg-secondary); }
   .choice-btn:active { transform: scale(0.98); }
-  .choice-btn[aria-pressed="true"] {
-    border: 2px solid var(--border-info);
-    background: var(--bg-info);
-    color: var(--text-info);
-  }
-  .key-hint {
-    font-size: 11px;
-    color: var(--text-secondary);
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-  }
+  .choice-btn[aria-pressed="true"] { border: 2px solid var(--border-info); background: var(--bg-info); color: var(--text-info); }
+  .key-hint { font-size: 11px; color: var(--text-secondary); text-align: center; display: flex; align-items: center; justify-content: center; gap: 4px; }
 
-  /* Results */
   .result-row { margin-bottom: 18px; }
-  .result-name {
-    font-size: 13px; font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 3px;
-    display: flex; align-items: center;
-    flex-wrap: wrap; gap: 6px;
-    line-height: 1.4;
-  }
+  .result-name { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 3px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; line-height: 1.4; }
   .result-stats { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
-  .bar-bg {
-    height: 8px; border-radius: 99px;
-    background: var(--bg-secondary); overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%; border-radius: 99px;
-    background: var(--text-info);
-    transition: width 0.4s ease;
-  }
+  .bar-bg { height: 8px; border-radius: 99px; background: var(--bg-secondary); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; background: var(--text-info); transition: width 0.4s ease; }
   .bar-fill.top { background: var(--text-success); }
 
-  .tag {
-    font-size: 11px; font-weight: 500;
-    padding: 2px 8px; border-radius: 99px;
-    background: var(--bg-success);
-    color: var(--text-success);
-    white-space: nowrap;
-  }
+  .tag { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 99px; background: var(--bg-success); color: var(--text-success); white-space: nowrap; }
 
-  /* Action buttons */
   .action-btn {
     width: 100%; padding: 13px;
     border-radius: var(--r-md);
     border: 1px solid var(--border-mid);
-    background: transparent;
-    cursor: pointer;
-    font-family: var(--font);
-    font-size: 14px; font-weight: 500;
-    color: var(--text-primary);
+    background: transparent; cursor: pointer;
+    font-family: var(--font); font-size: 14px; font-weight: 500; color: var(--text-primary);
     transition: background 0.15s;
     display: flex; align-items: center; justify-content: center; gap: 8px;
     min-height: 44px;
   }
   .action-btn:hover { background: var(--bg-secondary); }
   .action-btn + .action-btn { margin-top: 10px; }
-  .action-btn.success {
-    background: var(--bg-success);
-    border-color: var(--border-success);
-    color: var(--text-success);
-  }
+  .action-btn.success { background: var(--bg-success); border-color: var(--border-success); color: var(--text-success); }
   .btn-icon { width: 15px; height: 15px; flex-shrink: 0; }
 
   .footer-note { font-size: 13px; color: var(--text-secondary); margin-top: 1.25rem; line-height: 1.5; }
 
-  /* Intro steps */
   .step { display: flex; gap: 14px; align-items: flex-start; }
-  .step-num {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--bg-secondary);
-    border: 0.5px solid var(--border-subtle);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; font-size: 12px; font-weight: 500; color: var(--text-secondary);
-    aria-hidden: true;
-  }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-secondary); border: 0.5px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; font-weight: 500; color: var(--text-secondary); }
   .step-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px; }
   .step-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
-  kbd {
-    font-family: var(--font);
-    font-size: 11px; font-weight: 500;
-    padding: 1px 6px;
-    border-radius: 4px;
-    border: 1px solid var(--border-mid);
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-  }
+  kbd { font-family: var(--font); font-size: 11px; font-weight: 500; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border-mid); background: var(--bg-secondary); color: var(--text-secondary); }
 
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%) translateY(12px);
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    font-family: var(--font);
-    font-size: 13px; font-weight: 500;
-    padding: 10px 18px;
-    border-radius: 99px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    white-space: nowrap;
-    z-index: 100;
-  }
+  .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(12px); background: var(--text-primary); color: var(--bg-primary); font-family: var(--font); font-size: 13px; font-weight: 500; padding: 10px 18px; border-radius: 99px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; white-space: nowrap; z-index: 100; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* Live region for screen readers */
-  .sr-announce {
-    position: absolute;
-    width: 1px; height: 1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    white-space: nowrap;
-  }
+  .error-card { background: var(--bg-primary); border: 0.5px solid var(--border-subtle); border-radius: var(--r-lg); padding: 2rem; text-align: center; }
+  .error-card h1 { font-size: 18px; margin-bottom: 0.75rem; color: var(--text-primary); }
+  .error-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+  .error-card code { font-size: 13px; background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px; }
+
+  .sr-announce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -306,23 +176,32 @@
 
 <div class="wrap">
   <main id="main">
-    <div class="card" id="root"></div>
+    <div id="root"></div>
   </main>
 </div>
 
 <script>
-const NAMES = [
-  "THE WEBSMITH SUMMIT 2026",
-  "THE WEBSMITH CONFERENCE 2026",
-  "HYPERLINK 2026",
-  "MARKUP 2026",
-  "UMBRACO FORGE"
-  "UMBUK26",
-  "INTERFACE2FACE 2026"
-];
+/* ── Guard: ensure config.js loaded correctly ─────────────────── */
+if (typeof CONFIG === "undefined" || !Array.isArray(CONFIG.options) || CONFIG.options.length < 2) {
+  document.getElementById("root").innerHTML =
+    '<div class="error-card">'
+    + '<h1>Configuration error</h1>'
+    + '<p>This tool needs a <code>config.js</code> file in the same folder as <code>index.html</code>.<br><br>'
+    + 'Make sure <code>config.js</code> exists, defines a <code>CONFIG</code> object, and lists at least 2 options.</p>'
+    + '</div>';
+  throw new Error("CONFIG not found or invalid.");
+}
 
-const STORAGE_KEY = "conference_pairwise_v1";
+/* ── Bootstrap from config ────────────────────────────────────── */
+document.title = CONFIG.title || "Preference Test";
 
+const NAMES       = CONFIG.options;
+const STORAGE_KEY = CONFIG.storageKey || "pairwise_results_v1";
+const TITLE       = CONFIG.title      || "Preference Test";
+const INTRO_TEXT  = CONFIG.intro      || "Pick your preferred option in each head-to-head matchup.";
+const PAIR_COUNT  = NAMES.length * (NAMES.length - 1) / 2;
+
+/* ── Helpers ──────────────────────────────────────────────────── */
 function getPairs() {
   const pairs = [];
   for (let i = 0; i < NAMES.length; i++)
@@ -349,6 +228,12 @@ function announce(msg) {
   if (el) { el.textContent = ""; setTimeout(function() { el.textContent = msg; }, 50); }
 }
 
+function focusHeading() {
+  const h = document.querySelector("#root h1");
+  if (h) h.focus();
+}
+
+/* ── State ────────────────────────────────────────────────────── */
 let pairs = shuffle(getPairs()).map(function(p) { return Math.random() > 0.5 ? p : [p[1], p[0]]; });
 let current = 0;
 let picks = [];
@@ -358,6 +243,7 @@ let totalVoters = 0;
 
 NAMES.forEach(function(n) { wins[n] = 0; });
 
+/* ── Persistence ──────────────────────────────────────────────── */
 function loadData() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -373,6 +259,14 @@ function saveData() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ wins, totalVoters }));
   } catch(e) {}
+}
+
+/* ── Actions ──────────────────────────────────────────────────── */
+function startVoting() {
+  phase = "vote";
+  render();
+  const firstBtn = document.querySelector(".choice-btn");
+  if (firstBtn) firstBtn.focus();
 }
 
 function pick(name) {
@@ -393,46 +287,37 @@ function pick(name) {
 }
 
 function applyPicks() {
-  picks.forEach(function(p) {
-    wins[p.winner] = (wins[p.winner] || 0) + 1;
-  });
+  picks.forEach(function(p) { wins[p.winner] = (wins[p.winner] || 0) + 1; });
   totalVoters++;
   saveData();
   phase = "results";
   announce("Voting complete. Showing your results.");
   render();
-  const heading = document.querySelector("#root h1");
-  if (heading) heading.focus();
-}
-
-function startVoting() {
-  phase = "vote";
-  render();
-  const firstBtn = document.querySelector(".choice-btn");
-  if (firstBtn) firstBtn.focus();
+  focusHeading();
 }
 
 function restart() {
   pairs = shuffle(getPairs()).map(function(p) { return Math.random() > 0.5 ? p : [p[1], p[0]]; });
   current = 0; picks = []; phase = "intro";
   render();
-  const heading = document.querySelector("#root h1");
-  if (heading) heading.focus();
+  focusHeading();
 }
 
-const COPY_SVG = '<svg class="btn-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><rect x="5.5" y="1.5" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M10.5 4.5H2.5C1.67 4.5 1 5.17 1 6v8c0 .83.67 1.5 1.5 1.5h8c.83 0 1.5-.67 1.5-1.5V6c0-.83-.67-1.5-1.5-1.5z" stroke="currentColor" stroke-width="1.2"/></svg>';
+/* ── SVG icons ────────────────────────────────────────────────── */
+const COPY_SVG  = '<svg class="btn-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><rect x="5.5" y="1.5" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M10.5 4.5H2.5C1.67 4.5 1 5.17 1 6v8c0 .83.67 1.5 1.5 1.5h8c.83 0 1.5-.67 1.5-1.5V6c0-.83-.67-1.5-1.5-1.5z" stroke="currentColor" stroke-width="1.2"/></svg>';
 const CHECK_SVG = '<svg class="btn-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M13.5 4.5L6.5 11.5L2.5 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const RETRY_SVG = '<svg class="btn-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 1.5-3.9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M2 4v4h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+/* ── Copy results ─────────────────────────────────────────────── */
 function copyResults() {
   const topScore = Math.max.apply(null, Object.values(wins));
   const sorted = [...NAMES].sort(function(a, b) { return wins[b] - wins[a]; });
   const maxP = (NAMES.length - 1) * totalVoters;
 
   const lines = [
-    "Conference Name Preference Test",
-    "================================",
-    totalVoters + " voter" + (totalVoters !== 1 ? "s" : "") + " \u00b7 " + (totalVoters * pairs.length) + " matchups judged",
+    TITLE,
+    "=".repeat(TITLE.length),
+    totalVoters + " voter" + (totalVoters !== 1 ? "s" : "") + " \u00b7 " + (totalVoters * PAIR_COUNT) + " matchups judged",
     ""
   ];
   sorted.forEach(function(name, i) {
@@ -445,11 +330,9 @@ function copyResults() {
     lines.push("   " + bar + " " + pct + "% (" + w + " win" + (w !== 1 ? "s" : "") + ")");
   });
   lines.push("");
-  lines.push("Tested using pairwise comparison \u2014 every name vs every other name.");
+  lines.push("Tested using pairwise comparison \u2014 every option vs every other option.");
 
-  const text = lines.join("\n");
-
-  navigator.clipboard.writeText(text).then(function() {
+  navigator.clipboard.writeText(lines.join("\n")).then(function() {
     const btn = document.getElementById("copy-btn");
     if (btn) {
       btn.classList.add("success");
@@ -462,45 +345,44 @@ function copyResults() {
       }, 2500);
     }
     const toast = document.getElementById("toast");
-    if (toast) {
-      toast.classList.add("show");
-      setTimeout(function() { toast.classList.remove("show"); }, 2500);
-    }
+    if (toast) { toast.classList.add("show"); setTimeout(function() { toast.classList.remove("show"); }, 2500); }
     announce("Results copied to clipboard.");
   }).catch(function() {
-    alert("Copy failed. Here are your results:\n\n" + text);
+    alert("Copy failed. Here are your results:\n\n" + lines.join("\n"));
   });
 }
 
+/* ── Render ───────────────────────────────────────────────────── */
 function render() {
   const root = document.getElementById("root");
 
   if (phase === "intro") {
     root.innerHTML =
-      '<div style="text-align:center;padding:0.5rem 0 0.25rem">'
-      + '<p style="font-size:11px;font-weight:500;letter-spacing:0.12em;color:var(--text-secondary);text-transform:uppercase;margin-bottom:1.25rem" aria-hidden="true">Name testing</p>'
-      + '<h1 style="font-size:22px;font-weight:500;margin-bottom:0.75rem;line-height:1.3" tabindex="-1">Conference Name<br>Preference Test</h1>'
-      + '<p style="font-size:14px;color:var(--text-secondary);line-height:1.7;max-width:360px;margin:0 auto 2rem">We have a shortlist of names for an upcoming conference and need your honest opinion to help us decide.</p>'
+      '<div class="card">'
+      + '<div style="text-align:center;padding:0.5rem 0 0.25rem">'
+        + '<p style="font-size:11px;font-weight:500;letter-spacing:0.12em;color:var(--text-secondary);text-transform:uppercase;margin-bottom:1.25rem" aria-hidden="true">Preference test</p>'
+        + '<h1 style="font-size:22px;font-weight:500;margin-bottom:0.75rem;line-height:1.3" tabindex="-1">' + TITLE + '</h1>'
+        + '<p style="font-size:14px;color:var(--text-secondary);line-height:1.7;max-width:360px;margin:0 auto 2rem">' + INTRO_TEXT + '</p>'
       + '</div>'
       + '<hr class="divider" aria-hidden="true">'
       + '<ol style="display:flex;flex-direction:column;gap:14px;margin-bottom:2rem;list-style:none" aria-label="How it works">'
-        + '<li class="step"><div class="step-num" aria-hidden="true">1</div><div><p class="step-title">15 head-to-head matchups</p><p class="step-body">Every name is paired against every other. You\'ll see two names at a time and pick the one that feels stronger.</p></div></li>'
+        + '<li class="step"><div class="step-num" aria-hidden="true">1</div><div><p class="step-title">' + PAIR_COUNT + ' head-to-head matchups</p><p class="step-body">Every option is paired against every other. You\'ll see two at a time and pick the one that feels stronger.</p></div></li>'
         + '<li class="step"><div class="step-num" aria-hidden="true">2</div><div><p class="step-title">Go with your gut</p><p class="step-body">No context needed \u2014 just your honest first reaction. There are no right or wrong answers.</p></div></li>'
         + '<li class="step"><div class="step-num" aria-hidden="true">3</div><div><p class="step-title">Takes about 20 seconds</p><p class="step-body">Work through all the pairs in one sitting. Results appear as soon as you finish.</p></div></li>'
       + '</ol>'
-      + '<button class="action-btn" onclick="startVoting()">Start voting</button>';
+      + '<button class="action-btn" onclick="startVoting()">Start voting</button>'
+      + '</div>';
     return;
   }
 
   if (phase === "vote") {
     const pair = pairs[current];
-    const pct = Math.round((current / pairs.length) * 100);
+    const pct  = Math.round((current / pairs.length) * 100);
     const picked = picks[current] ? picks[current].winner : null;
-    const p0picked = picked === pair[0];
-    const p1picked = picked === pair[1];
 
     root.innerHTML =
-      '<h1 tabindex="-1">Which name is better?</h1>'
+      '<div class="card">'
+      + '<h1 tabindex="-1">Which option is better?</h1>'
       + '<p class="meta" id="vote-desc">Go with your gut \u2014 no context needed. Press <kbd>1</kbd> for the left option or <kbd>2</kbd> for the right.</p>'
       + '<div class="progress-wrap">'
         + '<p class="progress-label" id="progress-lbl">Matchup ' + (current + 1) + ' of ' + pairs.length + '</p>'
@@ -508,32 +390,33 @@ function render() {
           + '<div class="progress-bar-fill" style="width:' + pct + '%"></div>'
         + '</div>'
       + '</div>'
-      + '<div class="vs-grid" role="group" aria-label="Matchup ' + (current + 1) + ': choose your preferred name">'
+      + '<div class="vs-grid" role="group" aria-label="Matchup ' + (current + 1) + ': choose your preferred option">'
         + '<div class="choice-wrap">'
-          + '<button class="choice-btn" aria-pressed="' + p0picked + '" aria-describedby="vote-desc" onclick="pick(\'' + esc(pair[0]) + '\')">' + pair[0] + '</button>'
+          + '<button class="choice-btn" aria-pressed="' + (picked === pair[0]) + '" aria-describedby="vote-desc" onclick="pick(\'' + esc(pair[0]) + '\')">' + pair[0] + '</button>'
           + '<p class="key-hint" aria-hidden="true"><kbd>1</kbd> for this option</p>'
         + '</div>'
         + '<span class="vs-label" aria-hidden="true">vs</span>'
         + '<div class="choice-wrap">'
-          + '<button class="choice-btn" aria-pressed="' + p1picked + '" aria-describedby="vote-desc" onclick="pick(\'' + esc(pair[1]) + '\')">' + pair[1] + '</button>'
+          + '<button class="choice-btn" aria-pressed="' + (picked === pair[1]) + '" aria-describedby="vote-desc" onclick="pick(\'' + esc(pair[1]) + '\')">' + pair[1] + '</button>'
           + '<p class="key-hint" aria-hidden="true"><kbd>2</kbd> for this option</p>'
         + '</div>'
+      + '</div>'
       + '</div>';
     return;
   }
 
   if (phase === "results") {
     const topScore = Math.max.apply(null, Object.values(wins));
-    const sorted = [...NAMES].sort(function(a, b) { return wins[b] - wins[a]; });
-    const maxWins = Math.max.apply(null, Object.values(wins).concat([1]));
+    const sorted   = [...NAMES].sort(function(a, b) { return wins[b] - wins[a]; });
+    const maxWins  = Math.max.apply(null, Object.values(wins).concat([1]));
 
-    let rows = '<ol style="list-style:none;margin:0;padding:0" aria-label="Name rankings">';
+    let rows = '<ol style="list-style:none;margin:0;padding:0" aria-label="Option rankings">';
     sorted.forEach(function(name, i) {
-      const w = wins[name] || 0;
+      const w    = wins[name] || 0;
       const maxP = (NAMES.length - 1) * totalVoters;
-      const pct = maxP > 0 ? Math.round((w / maxP) * 100) : 0;
+      const pct  = maxP > 0 ? Math.round((w / maxP) * 100) : 0;
       const isTop = w === topScore && topScore > 0;
-      const barW = Math.round((w / maxWins) * 100);
+      const barW  = Math.round((w / maxWins) * 100);
       rows += '<li class="result-row">'
         + '<div class="result-name"><span>' + (i + 1) + '. ' + name + '</span>' + (isTop ? '<span class="tag">winner</span>' : '') + '</div>'
         + '<div class="result-stats">' + w + ' win' + (w !== 1 ? 's' : '') + ' \u00b7 ' + pct + '%</div>'
@@ -543,15 +426,18 @@ function render() {
     rows += '</ol>';
 
     root.innerHTML =
-      '<h1 tabindex="-1">Results</h1>'
+      '<div class="card">'
+      + '<h1 tabindex="-1">Results</h1>'
       + '<hr class="divider" aria-hidden="true">'
       + rows
       + '<p class="footer-note">Win % = wins out of all possible matchup wins. Results are stored locally in this browser.</p>'
       + '<button id="copy-btn" class="action-btn" onclick="copyResults()" aria-label="Copy results to clipboard">' + COPY_SVG + ' Copy results to clipboard</button>'
-      + '<button class="action-btn" onclick="restart()" aria-label="Retry the test from the beginning">' + RETRY_SVG + ' Retry test</button>';
+      + '<button class="action-btn" onclick="restart()" aria-label="Retry the test from the beginning">' + RETRY_SVG + ' Retry test</button>'
+      + '</div>';
   }
 }
 
+/* ── Keyboard shortcuts ───────────────────────────────────────── */
 document.addEventListener("keydown", function(e) {
   if (phase !== "vote") return;
   if (picks[current]) return;
@@ -559,6 +445,7 @@ document.addEventListener("keydown", function(e) {
   if (e.key === "2") { e.preventDefault(); pick(pairs[current][1]); }
 });
 
+/* ── Init ─────────────────────────────────────────────────────── */
 loadData();
 render();
 </script>
