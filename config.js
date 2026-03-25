@@ -42,6 +42,7 @@ const CONFIG = {
     "MARKUP 2026",
     "UMBRACO FORGE 2026",
     "INTERFACE2FACE 2026",
+    "UMBUK26",
   ],
 
   /**
